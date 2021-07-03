@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
 def admin(request):
-	return render(request ,'Petify/admin' )
+	return render(request ,'http://127.0.0.1:8000/admin' )
