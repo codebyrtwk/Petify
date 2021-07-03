@@ -8,3 +8,4 @@ def signup(request):
 
 def login(request):
 	return render(request , 'petify/login.html')
+
