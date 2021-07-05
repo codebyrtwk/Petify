@@ -19,30 +19,40 @@
                             type="text"
                             class="block border border-grey-light w-full p-3 rounded mb-4"
                             name="username"
-                            placeholder="User Name" />
+                            placeholder="User Name" /
+                            required >
 
                         <input 
                             type="text"
                             class="block border border-grey-light w-full p-3 rounded mb-4"
-                            name="fullname"
-                            placeholder="Full Name" />
-    
+                            name="firstname"
+                            placeholder="First Name" /
+                            required>
+
                         <input 
                             type="text"
                             class="block border border-grey-light w-full p-3 rounded mb-4"
+                            name="lastname"
+                            placeholder="Laat Name" /
+                            required>
+    
+                        <input 
+                            type="email"
+                            class="block border border-grey-light w-full p-3 rounded mb-4"
                             name="email"
-                            placeholder="Email" />
+                            placeholder="Email" /
+                            required>
     
                         <input 
                             type="password"
                             class="block border border-grey-light w-full p-3 rounded mb-4"
                             name="password"
-                            placeholder="Password" />
+                            placeholder="Password" / required>
                         <input 
                             type="password"
                             class="block border border-grey-light w-full p-3 rounded mb-4"
                             name="confirm_password"
-                            placeholder="Confirm Password" />
+                            placeholder="Confirm Password" / required>
                             {%csrf_token%}
     
                        <button  type = "submit" class="flex mx-auto mt-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Create Account</button>

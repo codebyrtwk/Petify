@@ -12,22 +12,24 @@ def home(request):
 def signup(request):
 	if request.method =="POST":
 		username = request.POST['username']
-		fullname = request.POST['fullname']
+		firstname = request.POST['firstname']
+		lastname = request.POST['lastname']
 		email = request.POST['email']
 		password = request.POST['password']
 		confirm_password = request.POST['confirm_password']
 
-		#checks for errors
+		
+
+			
 
 
 		#Create user
 		myuser = User.objects.create_user(username=username , email = email , password=password)
-		myuser.fullname = fullname
+		myuser.first_name = firstname
+		myuser.last_name = lastname
 		myuser.save()
-
-		messages.success(request,"Your Petify account has been successfully created.")
-		return redirect('/')
-
+		# messages.info(request,"Your Petify account has been successfully created.")
+		return redirect('login')
 	else:
 		return render(request , 'petify/signup.html')
 	
@@ -35,8 +37,29 @@ def signup(request):
 	
 
 
+
+#LOGIN PAGE
 def login(request):
-    return render(request , 'petify/login.html')
+
+	if request.method =="POST":
+		loginusername = request.POST['loginusername']
+		loginpassword = request.POST['loginpassword']
+		#AUTHENTICATING A USER
+		user = auth.authenticate(username = loginusername , password = loginpassword)
+		if user is not None:
+			auth.login(request , user)
+			return redirect('home')
+		else:
+			return HttpResponse("Invalid Credentials")
+	else :
+		return render(request , "petify/login.html")
+
+
+
+#LOGOUT
+def logout(request):
+    if request.method =="POST":
+    	auth.logout(request)
 
     
 	
