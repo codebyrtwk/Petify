@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,6 +30,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# AUTHENTICATION_BACKENDS = (
+#  'django.contrib.auth.backends.ModelBackend’,
+#  'allauth.account.auth_backends.AuthenticationBackend’,
+#  )
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'petifyapp'
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google', 
 ]
 
 MIDDLEWARE = [

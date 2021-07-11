@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+        <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/ball-point-pen.png"/> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="Index.css" />
+        <title>Petify | An all in one solution for pets</title>
+         <style type="text/css">
+          
+          #main{
+           background-color : aliceblue
+          }
+          
+         
+       
+
+         
+        </style>
+
+        
+    </head>
+    <body>
+      <header id = "nav"class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl"><a href = "/" ><strong>Petify</strong></a></span>
+          </a>
+          <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+            <a href = "/"class="mr-5 hover:text-gray-900">Medicine</a>
+            <a href = "/"class="mr-5 hover:text-gray-900">Food Products</a>
+            <a href = "/"class="mr-5 hover:text-gray-900"><strong>For Dogs</strong></a>
+            <a href = "/"class="mr-5 hover:text-gray-900" ><strong>For Cats</strong></a>
+
+            <a href = "/"class="mr-5 hover:text-gray-900">About</a>
+            <a href = "/"class="mr-5 hover:text-gray-900">Contact</a>
+            <a href = "/admin"class="mr-5 hover:text-gray-900">ADMIN</a>
+          </nav>
+          {% if user.is_authenticated %}
+          <!-- Hi , <strong>{{request.user.first_name}}</strong> -->
+          
+          <a href="http://127.0.0.1:8000/editprofile/"><img src="https://img.icons8.com/ios-glyphs/30/000000/ball-point-pen.png"/></a>
+          <button class="mx-4 inline-flex items-center bg-blue-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href = "/logout">Log out</a>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          <button class="mx-2 inline-flex items-center bg-red-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href = "becomevendor">Become Merchant</a>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          
+          
+          {% else %}
+           <button class="mx-4 inline-flex items-center bg-blue-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href = "http://127.0.0.1:8000/login/">Log in</a>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          <button class="inline-flex items-center bg-blue-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href = "signup">Sign Up</a>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          
+          
+         
+          {%endif %}
+        </div>
+      </header>
+
+     <hr>
+   
+       
+      
+     <section class="text-gray-600 body-font relative">
+    
+     
+<section id = "main" class="text-gray-600 body-font">
+ 
+  <div class="container mx-auto flex flex-col px-5 py-5  justify-center items-center">
+    
+    <div class="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
+      
+      <div class="flex w-full justify-center items-end">
+        <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4 md:w-full text-left">
+          <form action="{% url 'vaccination_search' %}" method="get">
+          <label for="hero-field" class="leading-7 text-sm text-gray-600">Enter Location</label>
+          <input type="search" id="hero-field" name="searchcenter" class="w-full bg-gray-100 bg-opacity-50 rounded focus:ring-2 focus:ring-indigo-200 focus:bg-transparent border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        </form>
+        </div>
+        <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" >Search</button>
+      </div>
+      <p class="text-sm mt-2 text-gray-500 mb-0 w-full">Powered by Google Maps </p>
+   
+      <section class="text-gray-600 body-font">
+        <div class="container px-5 py-14 mx-auto">
+          <div class="flex flex-wrap -m-4">
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260">
+              </a>
+              <div class="mt-4">
+                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+                <h2 class="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
+                <p class="mt-1">$16.00</p>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/421x261">
+              </a>
+              <div class="mt-4">
+                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+                <h2 class="text-gray-900 title-font text-lg font-medium">Shooting Stars</h2>
+                <p class="mt-1">$21.15</p>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/422x262">
+              </a>
+              <div class="mt-4">
+                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+                <h2 class="text-gray-900 title-font text-lg font-medium">Neptune</h2>
+                <p class="mt-1">$12.00</p>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/423x263">
+              </a>
+              <div class="mt-4">
+                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+                <h2 class="text-gray-900 title-font text-lg font-medium">The 400 Blows</h2>
+                <p class="mt-1">$18.40</p>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/424x264">
+              </a>
+              <div class="mt-4">
+                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+                <h2 class="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
+                <p class="mt-1">$16.00</p>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/425x265">
+              </a>
+              <div class="mt-4">
+                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+                <h2 class="text-gray-900 title-font text-lg font-medium">Shooting Stars</h2>
+                <p class="mt-1">$21.15</p>
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/427x267">
+              </a>
+              <div class="mt-4">
+                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+                <h2 class="text-gray-900 title-font text-lg font-medium">Neptune</h2>
+                <p class="mt-1">$12.00</p>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </div>
+</section>
+         
+          
+</section>
+
+
+
+       
+        
+        
+        
+
+
+
+    
+
+    </body>
+</html>
