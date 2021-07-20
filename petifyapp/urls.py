@@ -11,7 +11,4 @@ urlpatterns = [
     path("editprofile/" , views.editprofile , name = 'editprofile'),
     path("vaccination/" , views.vaccination , name ="vaccination"),
     path('vaccination_search' , views.vaccination_search , name ="vaccination_search")
-    
-    
-
-    ]
+    ] 

@@ -28,7 +28,6 @@ class VaccinationCenter(models.Model):
 	centerlocation = models.CharField(max_length=100)
 	centerpincode = models.IntegerField()
 	centerphone = models.IntegerField()
-	image= models.ImageField(upload_to = "shop/images")
-
+	image= models.ImageField(upload_to = "petify/images" , default = "")
 	def __str__(self):return self.centername
 	 
