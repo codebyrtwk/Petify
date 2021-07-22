@@ -13,11 +13,12 @@
         <!-- <img src="https://img.icons8.com/ios-glyphs/30/000000/ball-point-pen.png"/> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="Index.css" />
-        <title>Petify | An all in one solution for pets</title>
+        <title>Petify | Vaccination</title>
          <style type="text/css">
           
           #main{
-           background-color : aliceblue
+           background-color :lightblue; 
+           height : 91vh;
           }
           
          
@@ -45,7 +46,7 @@
 
             <a href = "/"class="mr-5 hover:text-gray-900">About</a>
             <a href = "/"class="mr-5 hover:text-gray-900">Contact</a>
-            <a href = "/admin"class="mr-5 hover:text-gray-900">ADMIN</a>
+            
           </nav>
           {% if user.is_authenticated %}
           <!-- Hi , <strong>{{request.user.first_name}}</strong> -->
@@ -96,77 +97,92 @@
       
       <div class="flex w-full justify-center items-end">
         <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4 md:w-full text-left">
-          <form action="{% url 'vaccination_search' %}" method="get">
-          <label for="hero-field" class="leading-7 text-sm text-gray-600">Enter Location</label>
-          <input type="search" id="hero-field" name="searchcenter" class="w-full bg-gray-100 bg-opacity-50 rounded focus:ring-2 focus:ring-indigo-200 focus:bg-transparent border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-        </form>
+          
+        <form action="{% url 'vaccination_search' %}" method="post">
+          {% csrf_token %}
+          <label for="hero-field" class="leading-7 text-sm text-gray-600">Enter location</label>
+          <input type="search" id="hero-field" name="searchcenter" class="w-full bg-gray-100 bg-opacity-100 rounded focus:ring-2 focus:ring-indigo-200  border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        
         </div>
-        <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" >Search</button>
+        <button  class="inline-flex text-white bg-indigo-500 border-1 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg " type = "submit" >Search</button>
       </div>
+    </form>
       <p class="text-sm mt-2 text-gray-500 mb-0 w-full">Powered by Google Maps </p>
       
       <section class="text-gray-600 body-font">
         <div class="container px-5 py-14 mx-auto">
           <div class="flex flex-wrap -m-4">
             <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-              
+              {% for center in centers %}
+              {% if forloop.counter == 1 %}
               <a class="block relative h-48 rounded overflow-hidden">
-                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="Pinic-for-dogs-cats-only-delhi-5bbc6613f1e73.jpg">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{center.image.url}}">
               </a>
               <div class="mt-4">
         
-                {% for center in centers %}
-                <h2 class="text-gray-900 title-font text-lg font-medium"><a href="">{{center}}</h2>
-                  {{break}}
-                  {% endfor %}
+               
+                    <h2 class="text-gray-900 title-font text-lg font-medium"><a href="">{{center}}</h2>
+                      <h3 class="text-gray-500 title-font text-sm font-small"><a href="">{{center.centerlocation}}</h2>
+
+                  {% endif %}
+                {% endfor %}
                
                
                 
               </div>
             </div>
             <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              {% for center in centers %}
+                {% if forloop.counter == 2 %}
               <a class="block relative h-48 rounded overflow-hidden">
-                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/421x261">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{center.image.url}}">
               </a>
               <div class="mt-4">
                 
-                <h2 class="text-gray-900 title-font text-lg font-medium">{{center}}</h2>
+              
+                  <h2 class="text-gray-900 title-font text-lg font-medium"><a href="">{{center}}</h2>
+                    <h3 class="text-gray-500 title-font text-sm font-small"><a href="">{{center.centerlocation}}</h2>
+                    
+                {% endif %}
+              {% endfor %}
+              </div>
+            </div>
+
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              {% for center in centers %}
+              {% if forloop.counter == 3 %}
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{center.image.url}}">
+              </a>
+              <div class="mt-4">
                 
+             
+                  <h2 class="text-gray-900 title-font text-lg font-medium"><a href="">{{center}}</h2>
+                    <h3 class="text-gray-500 title-font text-sm font-small"><a href="">{{center.centerlocation}}</h2>
+                    
+                {% endif %}
+              {% endfor %}
+              </div>
+            </div>
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              {% for center in centers %}
+                {% if forloop.counter == 4 %}
+              <a class="block relative h-48 rounded overflow-hidden">
+                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{center.image.url}}">
+              </a>
+              <div class="mt-4">
                 
-                
+              
+                  <h2 class="text-gray-900 title-font text-lg font-medium"><a href="">{{center}}</h2>
+                    <h3 class="text-gray-500 title-font text-sm font-small"><a href="">{{center.centerlocation}}</h2>
+                    
+                {% endif %}
+              {% endfor %}
               </div>
             </div>
             
-            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-              <a class="block relative h-48 rounded overflow-hidden">
-                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/422x262">
-              </a>
-              <div class="mt-4">
-                
-                
-                
-              </div>
-            </div>
-            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-              <a class="block relative h-48 rounded overflow-hidden">
-                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/423x263">
-              </a>
-              <div class="mt-4">
-                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
-                <h2 class="text-gray-900 title-font text-lg font-medium">The 400 Blows</h2>
-                <p class="mt-1">$18.40</p>
-              </div>
-            </div>
-            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-              <a class="block relative h-48 rounded overflow-hidden">
-                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/424x264">
-              </a>
-              <div class="mt-4">
-                <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
-                <h2 class="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
-                <p class="mt-1">$16.00</p>
-              </div>
-            </div>
+            
+            
             
             
           </div>

@@ -29,5 +29,6 @@ class VaccinationCenter(models.Model):
 	centerpincode = models.IntegerField()
 	centerphone = models.IntegerField()
 	image= models.ImageField(upload_to = "petify/images" , default = "")
+	
 	def __str__(self):return self.centername
 	 

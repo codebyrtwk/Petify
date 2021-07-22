@@ -17,15 +17,22 @@
          }
 
          #mainlogged{
-           background-image: url(https://images.unsplash.com/photo-1598134493136-7b63ebbd7b64?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1349&q=80); 
+           background-image: url(https://images.unsplash.com/photo-1598134493136-7b63ebbd7b64?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1349&q=80) ; 
            background-size: cover;
            background-repeat: no-repeat;
            background-position:center;
            height: 91vh;
+           /* -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH"; */
            
          }
          #main{
-           background-image: url(https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1349&q=80);
+          background-image: url(https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1349&q=80); 
+          /* background-image: url(https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1349&q=80); */
            background-size: cover;
            background-repeat: no-repeat;
            background-position:center;
@@ -44,7 +51,8 @@
         }
 
         #name{
-          color:Pink;
+          color:black;
+          
           
         }
 
@@ -109,7 +117,10 @@
      <hr>
      {% if user.is_authenticated %}
       <section id = "mainlogged" class="text-gray-600 body-font">]
-       <h1 id = "welcome">Hi, <strong id = name>{{request.user.first_name}}</strong></h1> 
+       <h1 id = "welcome">Hi, <strong id = name>{{request.user.first_name}}</strong></h1>
+       <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Please Donate</button> 
+       
+
              
         
                 

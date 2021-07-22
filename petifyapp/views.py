@@ -17,21 +17,26 @@ def signup(request):
         username = request.POST['username']
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
-
         email = request.POST['email']
+        #send confirmation email
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
-        # Create user
-        myuser = User.objects.create_user(
-            username=username, email=email, password=password)
-        myuser.first_name = firstname
-        myuser.last_name = lastname
+        if password == confirm_password:
+            user = User.objects.create_user(
+                username=username, password=password, email=email, first_name=firstname, last_name=lastname)
+            user.save()
+            return HttpResponse("You are at signup page")
+        else:
+            return HttpResponse("Password does not match")
 
-        myuser.save()
-        # messages.info(request,"Your Petify account has been successfully created.")
-        return redirect('login')
-    else:
-        return render(request, 'petify/signup.html')
+        #check if username already exists
+        if username == "" or username in user.objects.all():
+            return HttpResponse("Username already exists")
+        else:
+            return redirect('home')
+
+    return render(request, "petify/signup.html")
+
 
 
 # LOGIN PAGE
@@ -58,28 +63,32 @@ def logout(request):
     return redirect('home')
 
 # Edit User Profile
-
-
 @login_required
 def editprofile(request):
     if request.method == "POST":
         newfirstname = request.POST['firstname']
         newlastname = request.POST['lastname']
         newemail = request.POST['email']
-        # request.session['mid'] = user.id
-        # uid = request.session['mid']
-        myuser = User.objects.get(myuser.username)
-        if myuser.is_authenticated():
-            myuser.first_name = newfirstname
-            myuser.last_name = newlastname
-            myuser.email = newemail
-            myuser.save()
-        # messages.info(request,"Your Petify account has been successfully created.")
-            return redirect('home')
-        else:
-            return HttpResponse("Wrong Username")
+        myuser = request.user
+        myuser.first_name = newfirstname
+        myuser.last_name = newlastname
+        myuser.email = newemail
+        myuser.save()
+        #check if username already exists
+        for username in User.objects.all():
+            if username.username == myuser.username:
+                #messages popup
+                messages.info(request, "Username already exists")
+                return redirect('editprofile')
+            else :
+                messages.info(request, "Your profile has been updated successfully")
+                return redirect('home')
+
     else:
-        return render(request, 'petify/editprofile.html')
+        return render(request, "petify/editprofile.html")
+
+    
+
 
 
 # Become vendor page owner
@@ -107,17 +116,27 @@ def vendorlogin(request):
 
 # Vaccination PAGE
 def vaccination(request):
-    centers = VaccinationCenter.objects.all()
+    centers = VaccinationCenter.objects.all().order_by('centername')
     print(centers)
     param = {
         "centers": centers
     }
     return render(request, "petify/vaccination.html", param)
 
-
-
-
-
-
+#search on vaccination page based on center location        
 def vaccination_search(request):
-    pass
+    if request.method == "POST":
+        location = request.POST['searchcenter']
+        centers = VaccinationCenter.objects.all().order_by('centername')
+        #add center into result variable based on query string
+        result = centers.filter(centerlocation__icontains=location )
+        param = {
+            "centers": result 
+        }
+        return render(request, "petify/vaccination.html", param)
+    else:
+        return redirect('vaccination')
+
+
+       
+    
